@@ -5,6 +5,8 @@ public class Main {
         System.out.println(powerRecursive(2,0));
     }
 
+    //Question 1
+
     public static int powerIterative(int a,int n){
         int ans = 1;
         for(int i=1;i<=n;i++){
