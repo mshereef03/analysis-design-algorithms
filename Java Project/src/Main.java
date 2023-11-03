@@ -8,11 +8,9 @@ public class Main {
     public static void main(String [] args){
         int a =2;
         for (int size = 1; size <= 1000000; size *=2) {
-            int[] S = generateRandomArray(size);
-            int target = 1000; // Modify this as needed
 
             long startTime = System.currentTimeMillis();
-            powerIterative(a,size);
+            powerRecursive(a,size);
             long endTime = System.currentTimeMillis();
 
             double executionTime = (endTime - startTime)/1000.0;
