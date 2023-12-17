@@ -14,8 +14,8 @@ public class Assignment2 {
 
     public static void main(String [] args){
 
-        String a = "ATGCC"; // TCCCAGTTATGTCAGGGGACACGAGCATGCAGAGAC
-        String b = "TACGCA"; // AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC
+        String a = "TCCCAGTTATGTCAGGGGACACGAGCATGCAGAGAC"; // TCCCAGTTATGTCAGGGGACACGAGCATGCAGAGAC
+        String b = "AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC"; // AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC
         System.out.println("Score: "+sequenceAlignment(a,b));
 
 
