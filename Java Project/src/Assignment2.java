@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,8 +14,8 @@ public class Assignment2 {
 
     public static void main(String [] args){
 
-        String a = "ATA"; // TCCCAGTTATGTCAGGGGACACGAGCATGCAGAGAC
-        String b = "AAA"; // AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC
+        String a = "ATGCC"; // TCCCAGTTATGTCAGGGGACACGAGCATGCAGAGAC
+        String b = "TACGCA"; // AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC
         System.out.println("Score: "+sequenceAlignment(a,b));
 
 
@@ -66,7 +68,7 @@ public class Assignment2 {
         alignment(a, b);
         System.out.println("Sequence: ");
         reconstruct(a,b);
-        return alignment(a,b);
+        return round(alignment(a,b),1);
 
 
     }
@@ -137,6 +139,14 @@ public class Assignment2 {
         System.out.println(res1);
         System.out.println(res2);
         System.out.println();
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
 }
