@@ -89,6 +89,7 @@ public class Assignment2 {
             for(int i=0;i<a.length();i++){
                 temp+= scoreMatrix.getValue(a.charAt(i),'-');
             }
+            memoization[a.length()][0]=temp;
             track[a.length()][0]=2;
             return temp;
         }
