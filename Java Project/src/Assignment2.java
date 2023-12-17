@@ -13,7 +13,7 @@ public class Assignment2 {
     public static void main(String [] args){
 
         String a = "ATA"; // TCCCAGTTATGTCAGGGGACACGAGCATGCAGAGAC
-        String b = "AA"; // AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC
+        String b = "AAA"; // AATTGCCGCCGTCGTTTTCAGCAGTTATGTCAGATC
         System.out.println("Score: "+sequenceAlignment(a,b));
 
 
