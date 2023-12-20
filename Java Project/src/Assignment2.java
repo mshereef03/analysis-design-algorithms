@@ -67,7 +67,6 @@ public class Assignment2 {
         }
 
         alignment(a, b);
-        System.out.println("Sequence: ");
         reconstruct(a,b);
         return round(alignment(a,b),1);
 
@@ -141,6 +140,7 @@ public class Assignment2 {
             }
 
         }
+        System.out.println("Sequence: ");
         System.out.println(res1);
         System.out.println(res2);
         System.out.println();
