@@ -19,6 +19,7 @@ public class Assignment2 {
         System.out.println("Score: "+sequenceAlignment(a,b));
 
 
+
     }
 
     public static double sequenceAlignment(String a, String b){
@@ -93,20 +94,23 @@ public class Assignment2 {
             track[a.length()][0]=2;
             return temp;
         }
+
+
+        if(memoization[a.length()][b.length()] != Double.MIN_VALUE)return memoization[a.length()][b.length()];
+
         int aLastIndex = a.length()-1;
         int bLastIndex = b.length()-1;
-
-        if(memoization[aLastIndex][bLastIndex] != Double.MIN_VALUE)return memoization[aLastIndex][bLastIndex];
 
         double temp1= scoreMatrix.getValue(a.charAt(aLastIndex),b.charAt(bLastIndex)) + alignment(a.substring(0,aLastIndex),b.substring(0,bLastIndex));
         double temp2= scoreMatrix.getValue(a.charAt(aLastIndex),'-') + alignment(a.substring(0,aLastIndex),b);
         double temp3= scoreMatrix.getValue('-',b.charAt(bLastIndex)) + alignment(a,b.substring(0,bLastIndex));
 
-        memoization[aLastIndex][bLastIndex] = Math.max(temp1, Math.max(temp2,temp3));
-        if(temp1>=temp2 && temp1>=temp3)track[aLastIndex+1][bLastIndex+1] =1;
-        if(temp2>=temp1 && temp2>=temp3)track[aLastIndex+1][bLastIndex+1] =2;
-        if(temp3>=temp1 && temp3>=temp2)track[aLastIndex+1][bLastIndex+1] =3;
-        return memoization[aLastIndex][bLastIndex];
+
+        memoization[a.length()][b.length()] = Math.max(temp1, Math.max(temp2,temp3));
+        if(temp1>=temp2 && temp1>=temp3)track[a.length()][b.length()] =1;
+        if(temp2>=temp1 && temp2>=temp3)track[a.length()][b.length()] =2;
+        if(temp3>=temp1 && temp3>=temp2)track[a.length()][b.length()] =3;
+        return memoization[a.length()][b.length()];
     }
 
     public static void reconstruct(String a, String b){
