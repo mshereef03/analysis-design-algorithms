@@ -88,10 +88,10 @@ public class Assignment3 {
         Arrays.fill(colors, -1);
 
         for (int node : graph.keySet()) {
-            if (!visited[node]) {
-                colors[node] = 0;
-                if (!dfsCycle(graph, node, -1, colors)) {
+            if (colors[node] == -1) { // If the node has not been colored
+                if (!dfsCycle(graph, node, colors)) {
                     isBipartite = false;
+                    break; // Stop the search if the graph is not bipartite
                 }
             }
         }
@@ -99,34 +99,43 @@ public class Assignment3 {
         System.out.println("Graph is " + (isBipartite ? "bipartite" : "not bipartite"));
     }
 
-    private static boolean dfsCycle(HashMap<Integer, ArrayList<Integer>> graph, int node, int parent, int[] colors) {
+    private static boolean dfsCycle(HashMap<Integer, ArrayList<Integer>> graph, int node, int[] colors) {
+        if (colors[node] == -1) {
+            colors[node] = 0; // Assign the initial color
+        }
+
         visited[node] = true;
         path.add(node);
 
+        boolean isCurrentPathBipartite = true;
+
         for (int adj : graph.getOrDefault(node, new ArrayList<>())) {
-            if (!visited[adj]) {
-                colors[adj] = 1 - colors[node];
-                if (!dfsCycle(graph, adj, node, colors)) {
-                    return false;
-                }
-            } else if (adj != parent) {
-                // Cycle detected
+            if (colors[adj] == -1) {
+                colors[adj] = 1 - colors[node]; // Alternate color for adjacent node
+                isCurrentPathBipartite = dfsCycle(graph, adj, colors) && isCurrentPathBipartite;
+            } else if (colors[adj] == colors[node]) {
+                isBipartite = false; // Same color as current node, not bipartite
+                isCurrentPathBipartite = false;
+            }
+
+            if (visited[adj]) {
                 int startIndex = path.indexOf(adj);
-                if (startIndex != -1) {
-                    int cycleLength = path.size() - startIndex;
-                    if (cycleLength % 2 == 1) {
-                        isBipartite = false;  // Odd-length cycle found
-                    }
+                if (startIndex != -1 && startIndex < path.size() - 1) { // Check for valid cycle
+                    // Cycle detected
                     List<Integer> cycle = new ArrayList<>(path.subList(startIndex, path.size()));
-                    cycle.add(adj); // Adding the starting node at the end to complete the cycle
+                    cycle.add(adj); // Add the starting node at the end to complete the cycle
                     System.out.println("Cycle: " + cycle);
                 }
             }
         }
 
-        path.remove(path.size() - 1);  // Backtracking: Remove the current node before returning
-        return true;
+        path.remove((Integer) node); // Backtracking: Remove the current node before returning
+        return isCurrentPathBipartite;
     }
+
+
+
+
 
 
 }
